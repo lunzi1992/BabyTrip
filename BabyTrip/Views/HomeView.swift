@@ -160,6 +160,9 @@ struct HomeView: View {
     @EnvironmentObject var locationManager: LocationManager
     @StateObject var viewModel: HomeViewModel
     
+    @State private var showDetails = false
+    @State private var alertDismissed = false
+
     init(viewModel: HomeViewModel) {
         self._viewModel = StateObject(wrappedValue: viewModel)
     }
@@ -237,63 +240,189 @@ struct HomeView: View {
     }
     
     // MARK: - V2 首页布局
-    
+
     private func v2ResultView(_ result: EvaluationResult, _ weather: WeatherData) -> some View {
         VStack(spacing: 16) {
-            // 1. 城市 + 当前时间 + 更新时间
+            // 1. 城市 + 当前时间
             locationAndTimeView
-            
-            // V3: 天气提醒卡片
-            if let alert = viewModel.weatherAlert {
-                weatherAlertCard(alert)
+
+            // 2. 核心出行结论（首屏突出展示）
+            heroCard(result, weather)
+
+            // 3. 详细信息（可折叠）
+            detailSection(result, weather)
+
+            // 4. 底部信息
+            footerSection
+        }
+    }
+
+    // MARK: - 核心出行结论卡片
+
+    private func heroCard(_ result: EvaluationResult, _ weather: WeatherData) -> some View {
+        let riskColor = colorForRiskLevel(result.riskLevel)
+        let contributions = result.factorContributions.filter { $0.points > 0 }
+            .sorted { $0.points > $1.points }
+            .prefix(3)
+
+        return VStack(alignment: .leading, spacing: 16) {
+            // 风险等级 - 大图标 + 标题
+            HStack(spacing: 12) {
+                riskLevelIcon(result.riskLevel)
+                    .font(.system(size: 44))
+                    .foregroundColor(riskColor)
+
+                VStack(alignment: .leading, spacing: 4) {
+                    Text(riskLevelTitle(result.riskLevel))
+                        .font(.system(size: 26, weight: .bold))
+                        .foregroundColor(riskColor)
+
+                    if result.overallScore > 0 {
+                        Text("风险指数 \(result.overallScore)")
+                            .font(.subheadline)
+                            .foregroundColor(.secondary)
+                    }
+                }
+
+                Spacer()
             }
-            
-            // 2. 风险等级大标题
-            riskLevelCard(result)
-            
-            // 3. 人话总结
-            humanSummaryCard(result)
-            
-            // 4. 当前天气概览（移到总结下方）
-            weatherOverviewCard(weather)
-            
-            // V4: 昨日对比卡片
-            if let comparison = viewModel.yesterdayComparison {
-                yesterdayComparisonCard(comparison)
+
+            Divider()
+
+            // 一句话总结
+            Text(result.humanSummary)
+                .font(.body)
+                .lineSpacing(4)
+
+            // 主要原因
+            if !contributions.isEmpty {
+                VStack(alignment: .leading, spacing: 6) {
+                    Text("主要原因")
+                        .font(.caption)
+                        .foregroundColor(.secondary)
+
+                    ForEach(contributions) { contribution in
+                        if let reason = contribution.reasons.first {
+                            Label(reason, systemImage: factorIcon(contribution.factor))
+                                .font(.subheadline)
+                                .foregroundColor(.primary)
+                        }
+                    }
+                }
             }
-            
-            // V4: 最佳外出时间推荐
-            if !viewModel.recommendedTimeSlots.isEmpty {
-                v4BestTimeCard(viewModel.recommendedTimeSlots)
+        }
+        .padding()
+        .background(
+            RoundedRectangle(cornerRadius: 20)
+                .fill(Color(.systemBackground))
+                .shadow(color: riskColor.opacity(0.12), radius: 8, x: 0, y: 4)
+        )
+    }
+
+    private func factorIcon(_ factor: RiskFactor) -> String {
+        switch factor {
+        case .temperature: return "thermometer.medium"
+        case .feelsLike: return "thermometer.sun"
+        case .uv: return "sun.max.fill"
+        case .aqi: return "wind"
+        case .wind: return "wind"
+        case .humidity: return "drop.fill"
+        case .weatherCondition: return "cloud.sun.rain.fill"
+        }
+    }
+
+    // MARK: - 详细信息（可折叠）
+
+    private func detailSection(_ result: EvaluationResult, _ weather: WeatherData) -> some View {
+        VStack(spacing: 0) {
+            Button {
+                withAnimation(.spring(response: 0.3)) {
+                    showDetails.toggle()
+                }
+            } label: {
+                HStack {
+                    Text("详细信息")
+                        .font(.headline)
+                    Spacer()
+                    Image(systemName: showDetails ? "chevron.up" : "chevron.down")
+                        .foregroundColor(.secondary)
+                }
+                .padding()
+                .background(Color(.systemBackground))
+                .cornerRadius(12)
             }
-            
-            // V4: 穿衣指南
-            if let clothing = viewModel.clothingAdvice {
-                clothingCard(clothing)
+            .buttonStyle(.plain)
+
+            if showDetails {
+                VStack(spacing: 16) {
+                    // 天气提醒
+                    if let alert = viewModel.weatherAlert, !alertDismissed {
+                        weatherAlertCard(alert)
+                            .transition(.move(edge: .top).combined(with: .opacity))
+                    }
+
+                    // 当前天气概览
+                    weatherOverviewCard(weather)
+
+                    // 最佳外出时间
+                    if !viewModel.recommendedTimeSlots.isEmpty {
+                        v4BestTimeCard(viewModel.recommendedTimeSlots)
+                    }
+
+                    // 昨日对比
+                    if let comparison = viewModel.yesterdayComparison {
+                        yesterdayComparisonCard(comparison)
+                    }
+
+                    // 穿衣指南
+                    if let clothing = viewModel.clothingAdvice {
+                        clothingCard(clothing)
+                    }
+
+                    // 行动建议
+                    recommendationsCard(result)
+
+                    // 最佳时间（legacy）
+                    if let bestTime = result.bestTimeRange {
+                        bestTimeCard(bestTime)
+                    }
+                }
+                .padding(.top, 4)
+                .transition(.move(edge: .top).combined(with: .opacity))
             }
-            
-            // 5. 原因列表
-            reasonsCard(result)
-            
-            // 6. 行动建议
-            recommendationsCard(result)
-            
-            // 7. 最佳外出时间（P1）
-            if let bestTime = result.bestTimeRange {
-                bestTimeCard(bestTime)
-            }
-            
-            // 8. 宝宝信息卡片
+        }
+    }
+
+    // MARK: - 底部信息
+
+    private var footerSection: some View {
+        VStack(spacing: 8) {
+            // 宝宝信息（简约显示）
             if let baby = userSettings.babyProfile {
-                babyInfoCard(baby)
+                HStack(spacing: 8) {
+                    Image(systemName: "face.smiling.fill")
+                        .foregroundColor(.pink)
+                        .font(.caption)
+                    Text(babyProfileSummary(baby))
+                        .font(.caption)
+                        .foregroundColor(.secondary)
+                    Spacer()
+                }
+                .padding(.vertical, 4)
             }
-            
-            // 9. V3: 更新时间提示
+
+            // 更新时间
             updateTimeView
-            
-            // 10. 免责声明
+
+            // 免责声明
             disclaimerView
         }
+    }
+
+    private func babyProfileSummary(_ baby: BabyProfile) -> String {
+        let ageMonths = baby.ageInMonths
+        let stage = ageMonths <= 3 ? "新生儿" : (ageMonths <= 6 ? "小婴儿" : "婴儿")
+        return "\(baby.name) · \(ageMonths)个月 · \(stage)"
     }
     
     private var locationAndTimeView: some View {
@@ -413,30 +542,6 @@ struct HomeView: View {
         return formatter.string(from: Date())
     }
     
-    private func riskLevelCard(_ result: EvaluationResult) -> some View {
-        VStack(spacing: 12) {
-            HStack(spacing: 8) {
-                riskLevelIcon(result.riskLevel)
-                    .font(.system(size: 40))
-                Text(riskLevelTitle(result.riskLevel))
-                    .font(.system(size: 28, weight: .bold))
-            }
-            .foregroundColor(colorForRiskLevel(result.riskLevel))
-            
-            if result.overallScore > 0 {
-                Text("风险指数: \(result.overallScore)")
-                    .font(.subheadline)
-                    .foregroundColor(.secondary)
-            }
-        }
-        .frame(maxWidth: .infinity)
-        .padding(.vertical, 20)
-        .background(
-            RoundedRectangle(cornerRadius: 16)
-                .fill(colorForRiskLevel(result.riskLevel).opacity(0.1))
-        )
-    }
-    
     private func riskLevelIcon(_ level: RiskLevel) -> some View {
         switch level {
         case .safe:
@@ -447,7 +552,7 @@ struct HomeView: View {
             return Image(systemName: "xmark.circle.fill")
         }
     }
-    
+
     private func riskLevelTitle(_ level: RiskLevel) -> String {
         switch level {
         case .safe:
@@ -458,64 +563,16 @@ struct HomeView: View {
             return "不建议外出"
         }
     }
-    
-    private func humanSummaryCard(_ result: EvaluationResult) -> some View {
-        VStack(alignment: .leading, spacing: 8) {
-            Text("一句话总结")
-                .font(.caption)
-                .foregroundColor(.secondary)
-            
-            Text(result.humanSummary)
-                .font(.body)
-                .foregroundColor(.primary)
-        }
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .padding()
-        .background(Color(.systemBackground))
-        .cornerRadius(12)
-    }
-    
-    private func reasonsCard(_ result: EvaluationResult) -> some View {
-        let contributions = result.factorContributions.filter { $0.points > 0 }
-        guard !contributions.isEmpty else { return AnyView(EmptyView()) }
-        
-        return AnyView(
-            VStack(alignment: .leading, spacing: 12) {
-                Text("主要原因")
-                    .font(.caption)
-                    .foregroundColor(.secondary)
-                
-                VStack(alignment: .leading, spacing: 8) {
-                    ForEach(contributions.sorted { $0.points > $1.points }.prefix(3)) { contribution in
-                        if let reason = contribution.reasons.first {
-                            HStack(alignment: .top, spacing: 8) {
-                                Text("•")
-                                    .foregroundColor(.secondary)
-                                Text(reason)
-                                    .font(.subheadline)
-                                    .foregroundColor(.primary)
-                                Spacer()
-                            }
-                        }
-                    }
-                }
-            }
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .padding()
-            .background(Color(.systemBackground))
-            .cornerRadius(12)
-        )
-    }
-    
+
     private func recommendationsCard(_ result: EvaluationResult) -> some View {
         guard !result.recommendations.isEmpty else { return AnyView(EmptyView()) }
-        
+
         return AnyView(
             VStack(alignment: .leading, spacing: 12) {
                 Text("建议")
                     .font(.caption)
                     .foregroundColor(.secondary)
-                
+
                 VStack(alignment: .leading, spacing: 8) {
                     ForEach(result.recommendations, id: \.self) { recommendation in
                         HStack(alignment: .top, spacing: 8) {
@@ -536,13 +593,13 @@ struct HomeView: View {
             .cornerRadius(12)
         )
     }
-    
+
     private func bestTimeCard(_ timeRange: TimeRange) -> some View {
         VStack(alignment: .leading, spacing: 12) {
             Text("今日较适合外出时间")
                 .font(.caption)
                 .foregroundColor(.secondary)
-            
+
             HStack {
                 Image(systemName: "clock.fill")
                     .foregroundColor(.green)
@@ -551,7 +608,7 @@ struct HomeView: View {
                     .foregroundColor(.primary)
                 Spacer()
             }
-            
+
             Text(timeRange.reason)
                 .font(.caption)
                 .foregroundColor(.secondary)
@@ -561,46 +618,13 @@ struct HomeView: View {
         .background(Color(.systemBackground))
         .cornerRadius(12)
     }
-    
+
     private func formatTimeRange(_ timeRange: TimeRange) -> String {
         let formatter = DateFormatter()
         formatter.dateFormat = "HH:mm"
         return "\(formatter.string(from: timeRange.start)) - \(formatter.string(from: timeRange.end))"
     }
-    
-    private func babyInfoCard(_ baby: BabyProfile) -> some View {
-        let ageMonths = baby.ageInMonths
-        let stage = ageMonths <= 3 ? "新生儿" : (ageMonths <= 6 ? "小婴儿" : "婴儿")
-        let sensitivity = ageMonths <= 3 ? "高敏感" : (ageMonths <= 6 ? "中高敏感" : "中等敏感")
-        
-        return VStack(alignment: .leading, spacing: 12) {
-            Text("宝宝信息")
-                .font(.caption)
-                .foregroundColor(.secondary)
-            
-            HStack {
-                Image(systemName: "face.smiling.fill")
-                    .foregroundColor(.pink)
-                    .font(.title2)
-                
-                VStack(alignment: .leading, spacing: 2) {
-                    Text("\(ageMonths)个月 · \(stage)阶段")
-                        .font(.subheadline)
-                        .fontWeight(.medium)
-                    Text("(\(sensitivity))")
-                        .font(.caption)
-                        .foregroundColor(.secondary)
-                }
-                
-                Spacer()
-            }
-        }
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .padding()
-        .background(Color(.systemBackground))
-        .cornerRadius(12)
-    }
-    
+
     private func weatherOverviewCard(_ weather: WeatherData) -> some View {
         VStack(alignment: .leading, spacing: 12) {
             HStack {
