@@ -1,0 +1,61 @@
+name: BabyTrip
+options:
+  bundleIdPrefix: com.babytrip
+  deploymentTarget:
+    iOS: 17.0
+    watchOS: 10.0
+  groupSortPosition: top
+  createIntermediateGroups: true
+
+targets:
+  BabyTrip:
+    type: application
+    platform: iOS
+    deploymentTarget: 17.0
+    sources:
+      - path: BabyTrip
+    dependencies:
+      - target: BabyTripShared
+        embed: false
+    settings:
+      INFOPLIST_FILE: BabyTrip/Info.plist
+      PRODUCT_BUNDLE_IDENTIFIER: com.babytrip.BabyTrip
+      PRODUCT_MODULE_NAME: BabyTrip
+      SWIFT_VERSION: 5.0
+
+  BabyTripWatch:
+    type: application
+    platform: watchOS
+    deploymentTarget: 10.0
+    sources:
+      - path: BabyTripWatch
+    dependencies:
+      - target: BabyTripShared
+        embed: false
+    settings:
+      INFOPLIST_FILE: BabyTripWatch/Info.plist
+      PRODUCT_BUNDLE_IDENTIFIER: com.babytrip.BabyTrip.BabyTripWatch
+      PRODUCT_MODULE_NAME: BabyTripWatch
+      SWIFT_VERSION: 5.0
+
+  BabyTripShared:
+    type: framework
+    platform: iOS
+    deploymentTarget: 17.0
+    sources:
+      - path: BabyTripShared
+    settings:
+      PRODUCT_BUNDLE_IDENTIFIER: com.babytrip.BabyTripShared
+      PRODUCT_MODULE_NAME: BabyTripShared
+      SWIFT_VERSION: 5.0
+      SKIP_INSTALL: YES
+
+schemes:
+  BabyTrip:
+    build:
+      targets:
+        BabyTrip: all
+        BabyTripWatch: all
+        BabyTripShared: all
+    run:
+      target: BabyTrip
