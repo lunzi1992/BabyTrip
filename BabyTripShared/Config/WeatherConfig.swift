@@ -33,7 +33,7 @@ public struct WeatherConfig {
     
     private init() {
         // 尝试从 Bundle 加载 WeatherConfig.plist
-        guard let url = Bundle.main.url(forResource: "WeatherConfig", withExtension: "plist"),
+        guard let url = Bundle(for: WeatherConfig.self).url(forResource: "WeatherConfig", withExtension: "plist"),
               let data = try? Data(contentsOf: url),
               let plist = try? PropertyListSerialization.propertyList(from: data, format: nil) as? [String: Any] else {
             print("[WeatherConfig] 无法加载 WeatherConfig.plist，使用默认配置")
