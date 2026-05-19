@@ -508,7 +508,7 @@ struct HomeView: View {
         case .warning:
             return .orange
         case .caution:
-            return .yellow
+            return Color(red: 0.8, green: 0.6, blue: 0)  // 深琥珀色，在浅色背景上可读
         }
     }
     
