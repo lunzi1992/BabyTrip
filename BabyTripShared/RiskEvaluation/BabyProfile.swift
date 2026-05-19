@@ -7,7 +7,8 @@
 
 import Foundation
 
-public struct BabyProfile: Codable, Equatable {
+public struct BabyProfile: Codable, Equatable, Identifiable {
+    public let id = UUID()
     public var birthDate: Date
     public var name: String
     
@@ -69,11 +70,5 @@ public struct BabyProfile: Codable, Equatable {
                 return 1.0 // 标准敏感度
             }
         }
-    }
-}
-
-extension BabyProfile: Identifiable {
-    public var id: UUID {
-        UUID()
     }
 }
