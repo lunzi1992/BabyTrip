@@ -11,7 +11,8 @@ import Foundation
 
 public struct WeatherConfig {
 
-    private class BundleFinder {}
+    // 用于定位 framework bundle
+    private final class BundleFinder {}
 
     // MARK: - 配置键名
     private enum Keys {
@@ -21,20 +22,20 @@ public struct WeatherConfig {
         static let requestTimeout = "RequestTimeout"
         static let resourceTimeout = "ResourceTimeout"
     }
-    
+
     // MARK: - 默认值（仅超时等行为参数保留默认值，URL 配置以 plist 为准）
     private enum Defaults {
         static let requestTimeout: TimeInterval = 30
         static let resourceTimeout: TimeInterval = 300
     }
-    
+
     // MARK: - 共享实例
     public static let shared = WeatherConfig()
-    
+
     private let config: [String: Any]
-    
+
     private init() {
-        // 尝试从 Bundle 加载 WeatherConfig.plist
+        // 从 framework 自身的 bundle 加载 WeatherConfig.plist（不能用 Bundle.main，因为该类在 BabyTripShared framework 中）
         guard let url = Bundle(for: BundleFinder.self).url(forResource: "WeatherConfig", withExtension: "plist"),
               let data = try? Data(contentsOf: url),
               let plist = try? PropertyListSerialization.propertyList(from: data, format: nil) as? [String: Any] else {
@@ -55,7 +56,7 @@ public struct WeatherConfig {
         }
         return url
     }
-    
+
     /// 地理 API 基础 URL
     public var geoAPIBaseURL: String {
         guard let url = config[Keys.geoAPIBaseURL] as? String, !url.isEmpty else {
@@ -63,7 +64,7 @@ public struct WeatherConfig {
         }
         return url
     }
-    
+
     /// 空气质量 API 基础 URL
     public var airQualityAPIBaseURL: String {
         guard let url = config[Keys.airQualityAPIBaseURL] as? String, !url.isEmpty else {

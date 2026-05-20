@@ -7,30 +7,31 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		040C81B0FD8C73200941FAA5 /* BabyTripShared.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 587204C9F0004A65FF65723E /* BabyTripShared.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		0C5DC45ACB4F82BDC6A6FF32 /* SetupProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44016AA52379B985FB5C67BD /* SetupProfileView.swift */; };
 		119AEF01E634A512C32763FA /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B45669B5FB63CB2B721A3A6 /* ContentView.swift */; };
 		24C4833CF40A5AC6172C2BAF /* BabyTripShared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 587204C9F0004A65FF65723E /* BabyTripShared.framework */; };
-		040C81B0FD8C73200941FAA5 /* BabyTripShared.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 587204C9F0004A65FF65723E /* BabyTripShared.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		30154AB24CAD753AD3DCA11F /* BabyTripApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD77D0381E1B83612D5F70B3 /* BabyTripApp.swift */; };
 		69399BD1B33D324E2DF88F40 /* WeatherAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C0993298325A291C74B01E /* WeatherAPIClient.swift */; };
 		6C61FF3FD319B38BC1DDC221 /* EvaluationResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43C79B571DF4055E4FCC2A21 /* EvaluationResult.swift */; };
 		95069C94928391271B8E0CBF /* BabyProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D281529A6E4B51317B7B11F /* BabyProfile.swift */; };
 		992A102C6B9FAF3132BD0E35 /* WeatherData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9DF6C989F6D6ACFDF35ED2 /* WeatherData.swift */; };
 		99DE62CBA4A2BF397376B1E5 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C68F3FA35EEB3D35EAE61BEF /* SettingsView.swift */; };
+		A1B2C3D4E5F678901234567B /* TripRecommendation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F678901234567A /* TripRecommendation.swift */; };
 		A30454449EB098F073BB3ABB /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CFF94FE699CFBDDE850A761 /* UserSettings.swift */; };
+		AA11BB22CC33DD44EE55FF67 /* WeatherConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA11BB22CC33DD44EE55FF66 /* WeatherConfig.swift */; };
+		FF11EE22DD33CC44BB55AA69 /* WeatherConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = AA11BB22CC33DD44EE55FF68 /* WeatherConfig.plist */; };
+		B2C3D4E5F6789012345678A0 /* UserPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F6789012345679 /* UserPreferences.swift */; };
+		B2C3D4E5F6789012345678B2 /* WeatherCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C3D4E5F6789012345678B1 /* WeatherCache.swift */; };
 		BF53BBF36C453C10CF3CC144 /* BabyTripShared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 587204C9F0004A65FF65723E /* BabyTripShared.framework */; };
+		C1D2E3F4A5B678901234567D /* TripAdvisor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D2E3F4A5B678901234567C /* TripAdvisor.swift */; };
 		C1D3B1C288DBC9E8C5EC9F2E /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1C23CF593BF47261DC54ECE /* LocationManager.swift */; };
 		C3072483E1B1CE72E6118E51 /* RiskEvaluator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CA01829732F897F3B1F6C0 /* RiskEvaluator.swift */; };
 		C9B834CC15D0607CA8FF0E38 /* BabyTripWatchApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E5B63311DFE1C83EB874C8 /* BabyTripWatchApp.swift */; };
 		CE661CCE1177B81C423403C9 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DE6751804A22C0F33B5CFB0 /* HomeView.swift */; };
+		D4E5F6A7B8C9012345678A1 /* WeatherAlertManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F6A7B8C9D0123456789012 /* WeatherAlertManager.swift */; };
 		E4A42A99A5D3C71025EA9BC0 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CFAA8B8DFEB2F75EC614C70 /* ContentView.swift */; };
 		F3E4A5B6C7D8901234567891 /* PreferencesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1E2F3A4B5C6789012345678 /* PreferencesView.swift */; };
-		B2C3D4E5F6789012345678A0 /* UserPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F6789012345679 /* UserPreferences.swift */; };
-		D4E5F6A7B8C9012345678A1 /* WeatherAlertManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F6A7B8C9D0123456789012 /* WeatherAlertManager.swift */; };
-		A1B2C3D4E5F678901234567B /* TripRecommendation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F678901234567A /* TripRecommendation.swift */; };
-		B2C3D4E5F6789012345678B2 /* WeatherCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C3D4E5F6789012345678B1 /* WeatherCache.swift */; };
-		C1D2E3F4A5B678901234567D /* TripAdvisor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D2E3F4A5B678901234567C /* TripAdvisor.swift */; };
-		AA11BB22CC33DD44EE55FF67 /* WeatherConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA11BB22CC33DD44EE55FF66 /* WeatherConfig.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,35 +51,49 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		A1B2C3D4E5F6789012345678 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				040C81B0FD8C73200941FAA5 /* BabyTripShared.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		0CFF94FE699CFBDDE850A761 /* UserSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettings.swift; sourceTree = "<group>"; };
-		A1B2C3D4E5F6789012345679 /* UserPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPreferences.swift; sourceTree = "<group>"; };
 		1D281529A6E4B51317B7B11F /* BabyProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BabyProfile.swift; sourceTree = "<group>"; };
 		1D6E51C797B006F2094D6836 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		25C0993298325A291C74B01E /* WeatherAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherAPIClient.swift; sourceTree = "<group>"; };
-		E5F6A7B8C9D0123456789012 /* WeatherAlertManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherAlertManager.swift; sourceTree = "<group>"; };
 		3B45669B5FB63CB2B721A3A6 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		43C79B571DF4055E4FCC2A21 /* EvaluationResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EvaluationResult.swift; sourceTree = "<group>"; };
 		44016AA52379B985FB5C67BD /* SetupProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupProfileView.swift; sourceTree = "<group>"; };
-		D1E2F3A4B5C6789012345678 /* PreferencesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesView.swift; sourceTree = "<group>"; };
 		587204C9F0004A65FF65723E /* BabyTripShared.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = BabyTripShared.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5DE6751804A22C0F33B5CFB0 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		77CA01829732F897F3B1F6C0 /* RiskEvaluator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskEvaluator.swift; sourceTree = "<group>"; };
 		788BABA300F2A76BC2342CBA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		8CFAA8B8DFEB2F75EC614C70 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		8F9DF6C989F6D6ACFDF35ED2 /* WeatherData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherData.swift; sourceTree = "<group>"; };
-		A5E5B63311DFE1C83EB874C8 /* BabyTripWatchApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BabyTripWatchApp.swift; sourceTree = "<group>"; };
-		AD77D0381E1B83612D5F70B3 /* BabyTripApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BabyTripApp.swift; sourceTree = "<group>"; };
-		C53C6A9F5FF408DFBB7D2659 /* BabyTrip.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BabyTrip.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		C68F3FA35EEB3D35EAE61BEF /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
-		EE7C487DAD204DD44879F891 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		F1C23CF593BF47261DC54ECE /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
-		F8121E2DDE7790743F83F17C /* .app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = .app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A1B2C3D4E5F6789012345679 /* UserPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPreferences.swift; sourceTree = "<group>"; };
 		A1B2C3D4E5F678901234567A /* TripRecommendation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripRecommendation.swift; sourceTree = "<group>"; };
-		B2C3D4E5F6789012345678B1 /* WeatherCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherCache.swift; sourceTree = "<group>"; };
-		C1D2E3F4A5B678901234567C /* TripAdvisor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripAdvisor.swift; sourceTree = "<group>"; };
+		A5E5B63311DFE1C83EB874C8 /* BabyTripWatchApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BabyTripWatchApp.swift; sourceTree = "<group>"; };
 		AA11BB22CC33DD44EE55FF66 /* WeatherConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherConfig.swift; sourceTree = "<group>"; };
 		AA11BB22CC33DD44EE55FF68 /* WeatherConfig.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = WeatherConfig.plist; sourceTree = "<group>"; };
+		AD77D0381E1B83612D5F70B3 /* BabyTripApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BabyTripApp.swift; sourceTree = "<group>"; };
+		B2C3D4E5F6789012345678B1 /* WeatherCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherCache.swift; sourceTree = "<group>"; };
+		C1D2E3F4A5B678901234567C /* TripAdvisor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripAdvisor.swift; sourceTree = "<group>"; };
+		C53C6A9F5FF408DFBB7D2659 /* BabyTrip.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BabyTrip.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C68F3FA35EEB3D35EAE61BEF /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		D1E2F3A4B5C6789012345678 /* PreferencesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesView.swift; sourceTree = "<group>"; };
+		E5F6A7B8C9D0123456789012 /* WeatherAlertManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherAlertManager.swift; sourceTree = "<group>"; };
+		EE7C487DAD204DD44879F891 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		F1C23CF593BF47261DC54ECE /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		F8121E2DDE7790743F83F17C /* .app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = .app; path = BabyTripWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,19 +115,16 @@
 		};
 /* End PBXFrameworksBuildPhase section */
 
-/* Begin PBXCopyFilesBuildPhase section */
-		A1B2C3D4E5F6789012345678 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
+/* Begin PBXResourcesBuildPhase section */
+		FF11EE22DD33CC44BB55AA70 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
 			files = (
-				040C81B0FD8C73200941FAA5 /* BabyTripShared.framework in Embed Frameworks */,
+				FF11EE22DD33CC44BB55AA69 /* WeatherConfig.plist in Resources */,
 			);
-			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-/* End PBXCopyFilesBuildPhase section */
+/* End PBXResourcesBuildPhase section */
 
 /* Begin PBXGroup section */
 		13B2B6CDCD03F8BDC5699993 /* Views */ = {
@@ -121,15 +133,6 @@
 				3B45669B5FB63CB2B721A3A6 /* ContentView.swift */,
 			);
 			path = Views;
-			sourceTree = "<group>";
-		};
-		AA11BB22CC33DD44EE55FF69 /* Config */ = {
-			isa = PBXGroup;
-			children = (
-				AA11BB22CC33DD44EE55FF66 /* WeatherConfig.swift */,
-				AA11BB22CC33DD44EE55FF68 /* WeatherConfig.plist */,
-			);
-			path = Config;
 			sourceTree = "<group>";
 		};
 		1BCAE3A0D10B474A5F3C11C1 /* BabyTripShared */ = {
@@ -194,6 +197,15 @@
 			path = App;
 			sourceTree = "<group>";
 		};
+		AA11BB22CC33DD44EE55FF69 /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				AA11BB22CC33DD44EE55FF66 /* WeatherConfig.swift */,
+				AA11BB22CC33DD44EE55FF68 /* WeatherConfig.plist */,
+			);
+			path = Config;
+			sourceTree = "<group>";
+		};
 		B232DD8102DB627858ACE465 /* BabyTrip */ = {
 			isa = PBXGroup;
 			children = (
@@ -202,6 +214,14 @@
 				1D6E51C797B006F2094D6836 /* Info.plist */,
 			);
 			path = BabyTrip;
+			sourceTree = "<group>";
+		};
+		B3C4D5E6F7890123456789ABC /* Notification */ = {
+			isa = PBXGroup;
+			children = (
+				E5F6A7B8C9D0123456789012 /* WeatherAlertManager.swift */,
+			);
+			path = Notification;
 			sourceTree = "<group>";
 		};
 		D44E5F0AB8645FCF976214F3 /* Products */ = {
@@ -232,7 +252,6 @@
 				77CA01829732F897F3B1F6C0 /* RiskEvaluator.swift */,
 				8F9DF6C989F6D6ACFDF35ED2 /* WeatherData.swift */,
 				A1B2C3D4E5F678901234567A /* TripRecommendation.swift */,
-				B2C3D4E5F6789012345678B1 /* WeatherCache.swift */,
 				C1D2E3F4A5B678901234567C /* TripAdvisor.swift */,
 			);
 			path = RiskEvaluation;
@@ -244,14 +263,6 @@
 				25C0993298325A291C74B01E /* WeatherAPIClient.swift */,
 			);
 			path = Network;
-			sourceTree = "<group>";
-		};
-		B3C4D5E6F7890123456789ABC /* Notification */ = {
-			isa = PBXGroup;
-			children = (
-				E5F6A7B8C9D0123456789012 /* WeatherAlertManager.swift */,
-			);
-			path = Notification;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -297,6 +308,7 @@
 			buildConfigurationList = 4E88BC7E4BC42B38F9DFDBF5 /* Build configuration list for PBXNativeTarget "BabyTripShared" */;
 			buildPhases = (
 				069DCE65320833CFF057B607 /* Sources */,
+				FF11EE22DD33CC44BB55AA70 /* Resources */,
 			);
 			buildRules = (
 			);
